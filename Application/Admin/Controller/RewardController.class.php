@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-
+//更新测试
 class RewardController extends Controller
 {
     public function index($page =1)

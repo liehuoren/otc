@@ -39,7 +39,7 @@ class RewardController extends Controller
         }
         $rew['reward_info']=$rwd;
         $rew['count']=$count;
-        $this->ajaxReturn($rwd,'JSON');
+        $this->ajaxReturn($rew,'JSON');
     }
 
     public function upRewardFee()

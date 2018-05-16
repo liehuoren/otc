@@ -4,26 +4,39 @@ use Think\Controller;
 
 class RewardController extends Controller
 {
-    public function index()
+    public function index($page =2,$userid=null,$token=null)
     {
-//        session('userid',52);
+        $userid =52;
+//        $this->checkLog($userid,$token);
+
         $mo= M();
-        $where = ' invit1_id ='.session('userid').' or invit2_id = '.session('userid');
+        $where = ' invit1_id ='.$userid.' or invit2_id = '.$userid;
+        $total  =$mo->table('trade_invit_reward as a')
+            ->field('a.trade_user,a.invit1_id,a.invit1_fee,a.invit2_id,a.invit2_fee,a.coin_type,a.trade_time,b.num,b.fee')
+            ->join('trade_trade as b  on a.tradeid = b.id')
+            ->where($where)->select();
         $res = $mo->table('trade_invit_reward as a')
             ->field('a.trade_user,a.invit1_id,a.invit1_fee,a.invit2_id,a.invit2_fee,a.coin_type,a.trade_time,b.num,b.fee')
             ->join('trade_trade as b  on a.tradeid = b.id')
             ->where($where)
+            ->limit(($page-1)*15,15)
             ->select();
+        $count=count($total);
+        $index= ($page-1)*15+1;
         foreach ($res as $k=>$v)
         {
-            if ($v['invit1_id'] == session('userid'))
+
+            $res[$k]['index']=$index++;
+
+
+            if ($v['invit1_id'] == $userid)
             {
                 $res[$k]['level'] = '一级';
                 $res[$k]['invit_fee'] = $v['invit1_fee'];
 
             }
 
-            if ($v['invit2_id'] == session('userid'))
+            if ($v['invit2_id'] == $userid)
             {
                 $res[$k]['level'] = '二级';
                 $res[$k]['invit_fee'] = $v['invit2_fee'];
@@ -42,7 +55,11 @@ class RewardController extends Controller
                 'id' => $v['invit2_id']
             ))->getField('email');
         }
+        $data=array(
+            'count' => $count,
+            'list' => $res
+        );
 
-        $this->ajaxReturn($res);
+        $this->ajaxReturn($data,'JSON');
     }
 }

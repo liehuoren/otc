@@ -36,7 +36,6 @@ class VerifyController extends HomeController
 
         // $result = sendMail($input['email'] ,'',$content , $email['email'] , $email['emailpassword']);
         $result = sendMail($input['email'] ,'',$content , C('email') , C('emailpassword'));
-
         if ($result){
 
             $rs = M('EmailCode')->add(array(

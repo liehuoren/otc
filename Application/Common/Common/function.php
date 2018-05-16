@@ -202,12 +202,13 @@ function postcurl($url)
 
 function sendMail($to, $subject = '验证码', $content, $email , $emailpassword)
 {
+    $aa=($to.'-'.$email.'-'.$emailpassword);
     Vendor('PHPMailer.PHPMailerAutoload');
     $mail = new PHPMailer(); // 实例化
     $mail->IsSMTP(); // 启用SMTP
     $mail->Host = 'smtp.exmail.qq.com'; // smtp服务器的名称
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port = 465;
+//    $mail->SMTPSecure = 'ssl';
+//    $mail->Port = 465;
     $mail->SMTPAuth = true; // 启用smtp认证
     $mail->Username = $email; // 你的邮箱名
     $mail->Password = $emailpassword; // 邮箱密码

@@ -157,6 +157,32 @@ class FinanceController extends Controller
             }
         }
 
+        if ($coinInfo['name'] == 'eth') {
+            $dj_address = $coinInfo['dj_zj'];
+            $dj_port = $coinInfo['dj_dk'];
+
+            if ($coinInfo['type'] == 'eth') {
+                $eth = new \Common\Ext\Ethereum($dj_address, $dj_port);
+                if (!$eth->eth_protocolVersion()) {
+                    $this->ajaxError('钱包链接失败！');
+                }
+            }
+
+            $ethjson = $eth->eth_getBalance($coinInfo['dj_mian_address']);
+
+            if ($ethjson < $myzc['num']) {
+                $this->ajaxError('钱包余额不足');
+            }
+
+            $tokenFee = bcmul($coinInfo['gas'] , $coinInfo['gasprice']);
+
+            $realFee = $eth->real_banlance($tokenFee);
+
+            if ($ethjson + $realFee < $myzc['num']) {
+                $this->ajaxError('以太坊的手续费不足 ，请补充以太坊');
+            }
+        }
+
         if ($coinInfo['name'] == 'btc') {
             if ($coinInfo['type'] == 'qbb') {
                 $dj_username = $coinInfo['dj_yh'];
@@ -208,18 +234,22 @@ class FinanceController extends Controller
         if (check_arr($rs)) {
             switch ($coinInfo['type']) {
                 case 'eth':
+                    if ($coinInfo['name'] == 'eth') {
 
-                    $gas = $eth->encode_dec($coinInfo['gas']);
-                    $gasPrice = $eth->encode_dec($coinInfo['gasprice']);
-                    $dizhi = $eth->fill_zero($addr);
-                    $numreal = bcmul($myzc['mum'] , $coinInfo['unit']);
-                    $shuliang = $eth->encode_sixteen($numreal);
-                    $real_num = $eth->fill_Zero($shuliang);
+                        $sendrs = $eth->eth_sendTransaction($coinInfo['dj_mian_address'], $coinInfo['dj_mian_address_password'], $myzc['mum'], $addr, false, "", $eth->encode_dec($coinInfo['eth_gas']),$eth->encode_dec($coinInfo['eth_gasprice']));
+                    }else{
+                        $gas = $eth->encode_dec($coinInfo['gas']);
+                        $gasPrice = $eth->encode_dec($coinInfo['gasprice']);
+                        $dizhi = $eth->fill_zero($addr);
+                        $numreal = bcmul($myzc['mum'] , $coinInfo['unit']);
+                        $shuliang = $eth->encode_sixteen($numreal);
+                        $real_num = $eth->fill_Zero($shuliang);
 
-                    $inputdata = $coinInfo['method_id'] . $dizhi . $real_num;
+                        $inputdata = $coinInfo['method_id'] . $dizhi . $real_num;
 
-                    $sendrs = $eth->eth_sendTransaction($coinInfo['dj_mian_address'], $coinInfo['dj_mian_address_password'], 0, $coinInfo['contact_address'], false, $inputdata, $gas, $gasPrice);
+                        $sendrs = $eth->eth_sendTransaction($coinInfo['dj_mian_address'], $coinInfo['dj_mian_address_password'], 0, $coinInfo['contact_address'], false, $inputdata, $gas, $gasPrice);
 
+                    }
                     if ($sendrs) {
                         $flag = 1;
                         // 记录txid

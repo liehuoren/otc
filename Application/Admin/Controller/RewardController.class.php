@@ -4,12 +4,15 @@ use Think\Controller;
 
 class RewardController extends Controller
 {
-    public function index()
+    public function index($page =1)
     {
         
         $mo=M();
         $rew['InvitFee'] = $mo->table('trade_invit_fee')->order('id desc')->find();
-        $reward = $mo->table('trade_invit_reward')->select();
+        $count =count($mo->table('trade_invit_reward')->select());
+        $reward = $mo->table('trade_invit_reward')
+            ->limit(($page-1)*15,15)
+            ->select();
         foreach ($reward as $k=>$v)
         {
             $trade = $mo->table('trade_trade')->where(array(
@@ -35,6 +38,7 @@ class RewardController extends Controller
             $rwd[$k]['invit2_fee'] = $v['invit2_fee'];
         }
         $rew['reward_info']=$rwd;
+        $rew['count']=$count;
         $this->ajaxReturn($rwd,'JSON');
     }
 

@@ -26,7 +26,6 @@ class QueueController extends Controller
 
             $dj_address = $v['dj_zj'];
             $dj_port = $v['dj_dk'];
-            //$coin_num = $v['num'];
             echo 'start ' . $coin . "\n";
             echo 'client ' . $dj_address . "   port" . $dj_port;
             $eth = new \Common\Ext\Ethereum($dj_address, $dj_port);
@@ -48,6 +47,10 @@ class QueueController extends Controller
                 ))->find();
 
                 if ($token) {
+
+                    if ($trans->logs == '' || $trans->logs == null) {
+                        continue;
+                    }
                     $token_message = str_replace($token['method_id'], '', $trans->input);
                     $toaddressInfo = substr($token_message, 0, strlen($token_message) / 2);
                     $moneyInfo = substr($token_message, strlen($token_message) / 2);
@@ -56,8 +59,18 @@ class QueueController extends Controller
                     $trans->to = $toaddress;
                     $trans->value = $money;
                     $true_amount = $trans->value;
+                    $flag = 1;
                 } else {
-                    continue;
+                    $user = M('UserCoin')->where(array(
+                        'ethb' => $trans->to
+                    ))->find();
+
+                    if (!$user) {
+                        continue;
+                    }
+
+                    $true_amount = $eth->real_banlance($eth->decode_hex($trans->value));
+                    $flag = 2;
                 }
 
                 $user = M('UserCoin')->where(array(
@@ -87,23 +100,34 @@ class QueueController extends Controller
                     if ($res) {
                         continue;
                     } else {
-
-                        M('Myzr')->add(array(
-                            'userid' => $user['userid'],
-                            'username' => $trans->to,
-                            'coinname' => $coin,
-                            'fee' => $sfee,
-                            'txid' => $trans->hash,
-                            'num' => $true_amount,
-                            'mum' => $final_amount,
-                            'addtime' => time(),
-                            'status' => 0,
-                            'is_send_hotwallet' => 'S'
-                        ));
-//                        $Coin = M('Coin')->where(array(
-//                            'name' => 'usdp'
-//                        ))->find();
-
+                        if ($flag == 1) {
+                            M('Myzr')->add(array(
+                                'userid' => $user['userid'],
+                                'username' => $trans->to,
+                                'coinname' => $coin,
+                                'fee' => $sfee,
+                                'txid' => $trans->hash,
+                                'num' => $true_amount,
+                                'mum' => $final_amount,
+                                'addtime' => time(),
+                                'status' => 0,
+                                'is_send_hotwallet' => 'S',
+                                'is_apply_fee' => 'S'
+                            ));
+                        }else{
+                            M('Myzr')->add(array(
+                                'userid' => $user['userid'],
+                                'username' => $trans->to,
+                                'coinname' => $coin,
+                                'fee' => $sfee,
+                                'txid' => $trans->hash,
+                                'num' => $true_amount,
+                                'mum' => $final_amount,
+                                'addtime' => time(),
+                                'status' => 0,
+                                'is_send_hotwallet' => 'S'
+                            ));
+                        }
 
 
                         $zrflag = true;
@@ -137,18 +161,36 @@ class QueueController extends Controller
                             ));
                         } else {
                             echo 'trade_myzr 没有发现记录 生成一条' . "\n";
-                            $rs[] = $mo->table('trade_myzr')->add(array(
-                                'userid' => $user['userid'],
-                                'username' => $trans->to,
-                                'coinname' => $coin,
-                                'fee' => $sfee,
-                                'txid' => $trans->hash,
-                                'num' => $true_amount,
-                                'mum' => $final_amount,
-                                'addtime' => time(),
-                                'status' => 1,
-                                'is_send_hotwallet' => 'S'
-                            ));
+
+                            if ($flag == 1) {
+                                $rs[] = $mo->table('trade_myzr')->add(array(
+                                    'userid' => $user['userid'],
+                                    'username' => $trans->to,
+                                    'coinname' => $coin,
+                                    'fee' => $sfee,
+                                    'txid' => $trans->hash,
+                                    'num' => $true_amount,
+                                    'mum' => $final_amount,
+                                    'addtime' => time(),
+                                    'status' => 1,
+                                    'is_send_hotwallet' => 'S',
+                                    'is_apply_fee' => 'S'
+                                ));
+                            }else{
+                                $rs[] = $mo->table('trade_myzr')->add(array(
+                                    'userid' => $user['userid'],
+                                    'username' => $trans->to,
+                                    'coinname' => $coin,
+                                    'fee' => $sfee,
+                                    'txid' => $trans->hash,
+                                    'num' => $true_amount,
+                                    'mum' => $final_amount,
+                                    'addtime' => time(),
+                                    'status' => 1,
+                                    'is_send_hotwallet' => 'S'
+                                ));
+                            }
+
                         }
 
                         if (check_arr($rs)) {
@@ -178,6 +220,7 @@ class QueueController extends Controller
         $myzrInfo = M('Myzr')->where(array(
             'is_apply_fee' => 'F',
             'is_send_hotwallet' => 'S',
+            'coinname' => 'uspt'
         ))->select();
 
         foreach ($myzrInfo as $k => $v) {
@@ -214,7 +257,6 @@ class QueueController extends Controller
 
                 $tokenFee = bcmul($coin['gas'] , $coin['gasprice']);
 
-                //$realFee = $this->sctonum($eth->real_banlance($tokenFee));
                 $realFee = $eth->real_banlance($tokenFee);
 
                 //申请以太坊手续费
@@ -237,14 +279,6 @@ class QueueController extends Controller
                     }else{
                         echo "存入手续费失败";
                     }
-
-//                    foreach ($myzrInfo as $v1) {
-//                        if ($v1['username'] == $v['username']) {
-//                            M('Myzr')->where(array(
-//                                'id' => $v1['id']
-//                            ))->setField('is_apply_fee' , 'S');
-//                        }
-//                    }
 
                     foreach ($arrid as  $v1) {
                         if ($v1['username'] == $v['username']) {
@@ -295,32 +329,41 @@ class QueueController extends Controller
 
         foreach ($myzrInfo as $k => $v) {
 
-            if ($v['coinname'] != 'usdp') {
+            if ($v['coinname'] == 'usdp') {
                 continue;
             }
 
             $balence = $eth->eth_getBalance($v['username']);
             $tokenFee = bcmul($coin['gas'] , $coin['gasprice']);
-            //if ($balence < $this->sctonum($eth->real_banlance(bcmul($coin['gas'] , $coin['gasprice'])))) {
             if ($balence < $eth->real_banlance($tokenFee)) {
                 echo "eth手续费不足:";
                 continue;
             }else{
-                $tokenJson = $eth->eth_contract_getBalance($coin['contact_address'],$v['username']);
-                $gas = $eth->encode_dec($coin['gas']);
-                $gasPrice = $eth->encode_dec($coin['gasprice']);
-                $dizhi = $eth->fill_zero($coin['dj_mian_address']);
-                $numreal = bcmul($tokenJson , $coin['unit']);
-                $shuliang = $eth->encode_sixteen($numreal);
-                $real_num = $eth->fill_Zero($shuliang);
-                $inputdata = $coin['method_id'] . $dizhi . $real_num;
+                if ($v['coinname'] == 'usdp') {
+                    $tokenJson = $eth->eth_contract_getBalance($coin['contact_address'],$v['username']);
+                    $gas = $eth->encode_dec($coin['gas']);
+                    $gasPrice = $eth->encode_dec($coin['gasprice']);
+                    $dizhi = $eth->fill_zero($coin['dj_mian_address']);
+                    $numreal = bcmul($tokenJson , $coin['unit']);
+                    $shuliang = $eth->encode_sixteen($numreal);
+                    $real_num = $eth->fill_Zero($shuliang);
+                    $inputdata = $coin['method_id'] . $dizhi . $real_num;
 
-//                $transaction = new \Common\Ext\Ethereum_Transaction($v['username'], $coin['contact_address'], '0', $gas, $gasPrice, $inputdata);
-                $userCoin = M('UserCoin')->where(array(
-                    'usdpb' => $v['username']
-                ))->find();
+                    $userCoin = M('UserCoin')->where(array(
+                        'usdpb' => $v['username']
+                    ))->find();
 
-                $sendrs = $eth->eth_sendTransaction($v['username'], $userCoin['usdps'], 0, $coin['contact_address'], false, $inputdata, $gas, $gasPrice);
+                    $sendrs = $eth->eth_sendTransaction($v['username'], $userCoin['usdps'], 0, $coin['contact_address'], false, $inputdata, $gas, $gasPrice);
+                }
+
+                if ($v['coinname'] == 'eth') {
+                    $balence = $eth->eth_getBalance($v['username']);
+                    $tokenFee = bcmul($coin['eth_gas'] , $coin['eth_gasprice']);
+                    $ethFee = $eth->real_banlance($tokenFee);
+                    $realnum = $balence - $ethFee;
+
+                    $sendrs = $eth->eth_sendTransaction($v['username'], $userCoin['eths'], $realnum, $coin['dj_mian_address'], false, "", $eth->encode_dec($coin['eth_gas']),$eth->encode_dec($coin['eth_gasprice']));
+                }
 
                 if ($sendrs) {
                     $res = M('SendHot')->add(array(
@@ -330,7 +373,8 @@ class QueueController extends Controller
                         'addtime' => date('Y-m-d H:i:s' , time()),
                         'status' => 1,
                         'num' => $tokenJson,
-                        'hash' => $sendrs
+                        'hash' => $sendrs,
+                        'coinname' => $v['coinname']
                     ));
                     foreach ($arrid as $v1) {
                         if ($v1['username'] == $v['username']) {
@@ -459,14 +503,6 @@ class QueueController extends Controller
                     $sfee = 0;
                     $true_amount = $trans['amount'];
 
-//                    if (C('Coin')[$coin]['zr_zs']) {
-//                        $song = round(($trans['amount'] / 100) * C('Coin')[$coin]['zr_zs'], 8);
-//
-//                        if ($song) {
-//                            $sfee = $song;
-//                            $trans['amount'] = $trans['amount'] + $song;
-//                        }
-//                    }
 
                     if ($trans['confirmations'] < $v['zr_dz']) {
                         echo $trans['account'] . ' confirmations ' . $trans['confirmations'] . ' not elengh ' . C('Coin')[$coin]['zr_dz'] . ' continue ' . "<br/>";

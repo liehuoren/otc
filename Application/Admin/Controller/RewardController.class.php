@@ -1,7 +1,8 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-//更新测试
+
+
 class RewardController extends Controller
 {
     public function index($page =1)
@@ -19,6 +20,7 @@ class RewardController extends Controller
                 'id' => $v['tradeid']
             ))->find();
             $rwd[$k]['tradeid'] = $v['tradeid'];
+            $rwd[$k]['coin_type'] = $v['coin_type'];
             $rwd[$k]['time'] = date('Y-m-d H:i:s',$v['trade_time']);
             $rwd[$k]['trade_name'] = $mo->table('trade_user')->where(array(
                 'id' => $v['trade_user']
@@ -46,8 +48,9 @@ class RewardController extends Controller
     {
         $fee = I('post.');
         $rs = M('InvitFee')->add(array(
-            'fee1' =>$fee['level1'],
-            'fee2' =>$fee['level2']
+            'invit1' =>$fee['invit1'],
+            'invit2' =>$fee['invit2'],
+            'addtime'=>date('Y-m-d H:i:s')
             ));
         if ($rs)
         {

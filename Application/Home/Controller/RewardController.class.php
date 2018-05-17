@@ -4,12 +4,15 @@ use Think\Controller;
 
 class RewardController extends Controller
 {
-    public function index($page =2,$userid=null,$token=null)
+    public function index($page =1,$userid=null,$token=null)
     {
-        $userid =52;
-//        $this->checkLog($userid,$token);
+        $this->checkLog($userid,$token);
 
         $mo= M();
+        $invit= $mo->table('trade_user')->where(array(
+            'id'=> $userid
+        ))->getField('invit');
+
         $where = ' invit1_id ='.$userid.' or invit2_id = '.$userid;
         $total  =$mo->table('trade_invit_reward as a')
             ->field('a.trade_user,a.invit1_id,a.invit1_fee,a.invit2_id,a.invit2_fee,a.coin_type,a.trade_time,b.num,b.fee')
@@ -57,9 +60,13 @@ class RewardController extends Controller
         }
         $data=array(
             'count' => $count,
-            'list' => $res
+            'list' => $res,
+            'invit' =>$invit
         );
 
         $this->ajaxReturn($data,'JSON');
     }
+
+
+
 }

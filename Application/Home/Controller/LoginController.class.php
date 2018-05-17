@@ -59,6 +59,14 @@ class LoginController extends HomeController
 
         }
         $invit = get_invit_id();
+
+        if (M('User')->where(array(
+            'invit' =>$invit
+        ))->find())
+        {
+            $invit = get_invit_id();
+        }
+
         $mo = M();
         $mo->execute('set autocommit=0');
         $mo->execute('lock tables trade_user write , trade_user_coin write , trade_user_credit write, trade_invit_reward write');

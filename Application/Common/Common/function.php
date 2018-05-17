@@ -82,12 +82,12 @@ function check($data, $rule = NULL, $ext = NULL)
 function get_invit_id()
 {
 
-    $rs=M('User')->order('id desc')->find();
+//    $rs=M('User')->order('id desc')->find();
     $str='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
     $start= rand(0,strlen($str)-6);
     $randStr = str_shuffle($str);//打乱字符串
     $rands= substr($randStr,$start,6);//substr(string,start,length);返回字符串的一部分
-    $rands.=$rs['id']+1;
+//    $rands.=$rs['id']+1;
     return $rands;
 }
 
@@ -202,7 +202,6 @@ function postcurl($url)
 
 function sendMail($to, $subject = '验证码', $content, $email , $emailpassword)
 {
-    $aa=($to.'-'.$email.'-'.$emailpassword);
     Vendor('PHPMailer.PHPMailerAutoload');
     $mail = new PHPMailer(); // 实例化
     $mail->IsSMTP(); // 启用SMTP

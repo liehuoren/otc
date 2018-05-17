@@ -44,13 +44,13 @@ class UserController extends Controller
 ////            ->where('status = 1')
 //            ->getField('name');
         $info = M()->table('trade_user as a')
-            ->field('a.id,a.username,a.email,a.addtime,a.sm_is_ok,a.is_vip,a.sm_sc_zheng,a.idcard,a.truename,a.moble ,b.usdp,b.usdpd')
+            ->field('a.id,a.username,a.email,a.addtime,a.sm_is_ok,a.is_vip,a.sm_sc_zheng,a.idcard,a.truename,a.moble ,b.usdt,b.usdtd')
             ->join('left join trade_user_coin as b on b.userid = a.id')
             ->where($where)->limit(($page-1) * 15 , 15)
             ->select();
 
         $total = M()->table('trade_user as a')
-            ->field('a.id,a.username,a.email,a.addtime,a.sm_is_ok,a.is_vip,a.sm_sc_zheng,a.idcard,a.truename,a.moble,b.usdp,b.usdpd')
+            ->field('a.id,a.username,a.email,a.addtime,a.sm_is_ok,a.is_vip,a.sm_sc_zheng,a.idcard,a.truename,a.moble,b.usdt,b.usdtd')
             ->join('left join trade_user_coin as b on b.userid = a.id')
             ->where($where)
             ->select();

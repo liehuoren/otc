@@ -35,7 +35,7 @@ class VerifyController extends HomeController
         // ))->find();
 
         // $result = sendMail($input['email'] ,'',$content , $email['email'] , $email['emailpassword']);
-        $result = sendMail($input['email'] ,'',$content , C('email') , C('emailpassword'));
+        $result = sendMail($input['email'] ,'用户注册',$content , C('email') , C('emailpassword'));
         if ($result){
 
             $rs = M('EmailCode')->add(array(
@@ -75,7 +75,7 @@ class VerifyController extends HomeController
         // ))->find();
 
         // $result = sendMail($input['email'] ,'',$content ,$email['email'] , $email['emailpassword']);
-        $result = sendMail($input['email'] ,'',$content , C('email') , C('emailpassword'));
+        $result = sendMail($input['email'] ,'找回密码',$content , C('email') , C('emailpassword'));
         if ($result){
 
             $rs = M('EmailCode')->add(array(
@@ -107,7 +107,7 @@ class VerifyController extends HomeController
         // ))->find();
 
         // $result = sendMail($user['email'] ,'',$content , $email['email'] , $email['emailpassword']);
-        $result = sendMail($user['email'] ,'',$content , C('email') , C('emailpassword'));
+        $result = sendMail($user['email'] ,'修改密码',$content , C('email') , C('emailpassword'));
         if ($result){
             $rs = M('EmailCode')->add(array(
                 'email' => $user['email'],
@@ -138,7 +138,7 @@ class VerifyController extends HomeController
         //     'id' => 1
         // ))->find();
         // $result = sendMail($user['email'] ,'',$content , $email['email'] , $email['emailpassword']);
-        $result = sendMail($user['email'] ,'',$content , C('email') , C('emailpassword'));
+        $result = sendMail($user['email'] ,'转出操作',$content , C('email') , C('emailpassword'));
         if ($result){
             $rs = M('EmailCode')->add(array(
                 'email' => $user['email'],

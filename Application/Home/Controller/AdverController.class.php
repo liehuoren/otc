@@ -176,13 +176,14 @@ class AdverController extends HomeController
             $this->ajaxError('您的价格区间有问题');
         }
 
-        if ($pay_type == '') {
+        if ($pay_type == '' || $pay_type ==null) {
             $this->ajaxError('请输入支付类型');
         }
 
-        if ($message == ''){
-            $this->ajaxError('请输入广告备注');
-        }
+
+//        if ($message == ''||$message==null){
+//            $this->ajaxError('请输入广告备注');
+//        }
 
         $rand=rand(11,99);
 

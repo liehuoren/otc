@@ -391,7 +391,7 @@ class UserController extends HomeController
 
 
         if (!check($newpaypassword, 'password')) {
-            $this->ajaxError('新交易密码格式错误');
+            $this->ajaxError('资金密码格式错误');
         }
 
         if ($newpaypassword != $repaypassword) {

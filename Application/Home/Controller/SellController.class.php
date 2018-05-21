@@ -257,7 +257,7 @@ class SellController extends HomeController
                 'msg' => '下单OK'
             );
             $email=M('user')->where('id='.$tradeData['userid'])->find();
-            $content = '尊敬的T-Bees用户您好,<br/>您有一笔买入 '.$num.' '.$tradeData['coin_type'].' 的订单'.$order_id.'尚未支付，请尽快完成支付并在网页点击“付款已完成”，否则订单将在30分钟后因超时被取消。如果您已经完成了支付，请在订单页面点击“付款已完成”，否则将无法收到对方支付的数字资产。';
+            $content = '尊敬的SPEEDOTC用户您好,<br/>您有一笔买入 '.$num.' '.$tradeData['coin_type'].' 的订单'.$order_id.'尚未支付，请尽快完成支付并在网页点击“付款已完成”，否则订单将在30分钟后因超时被取消。如果您已经完成了支付，请在订单页面点击“付款已完成”，否则将无法收到对方支付的数字资产。';
             $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
 
             if ($result){

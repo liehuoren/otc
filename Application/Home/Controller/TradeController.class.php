@@ -365,12 +365,13 @@ class TradeController extends HomeController
                 if ($userid == $tradeData['userid']){
                     if ($tradeData['type'] == 1){
                         $email=M('user')->where('id='.$tradeData['trade_id'])->find();
-                        $content ='尊敬的T-Bees用户您好,<br/>用户买家将订单 '.$tradeData['order_id'].' 标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
+                        $content ='尊敬的SPEEDOTC用户您好,<br/>用户买家将订单 '.$tradeData['order_id'].' 标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。
+                        如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
                         $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
                     }
                     if ($tradeData['type'] == 2){
                         $email=M('user')->where('id='.$tradeData['trade_id'])->find();
-                        $content = '尊敬的T-Bees用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，卖家已放行 '.$tradeData['num'].' '.$tradeData['coin_type'].' 。如果您对该订单处理有疑问，请联系客服。';
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，卖家已放行 '.$tradeData['num'].' '.$tradeData['coin_type'].' 。如果您对该订单处理有疑问，请联系客服。';
                         $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
                     }
                 }
@@ -457,12 +458,12 @@ class TradeController extends HomeController
                 if ($userid == $tradeData['trade_id']){
                     if ($tradeData['type'] == 1){
                         $email=M('user')->where('id='.$tradeData['userid'])->find();
-                        $content = '尊敬的T-Bees用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，卖家已放行 '.$tradeData['num'].' '.$tradeData['coin_type'].' 。如果您对该订单处理有疑问，请联系客服。';
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，卖家已放行 '.$tradeData['num'].' '.$tradeData['coin_type'].' 。如果您对该订单处理有疑问，请联系客服。';
                         $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
                     }
                     if ($tradeData['type'] == 2){
                         $email=M('user')->where('id='.$tradeData['userid'])->find();
-                        $content = '尊敬的T-Bees用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
 
                         $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
                     }

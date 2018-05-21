@@ -17,7 +17,7 @@ class AdverController extends HomeController
             $data = array(
                 'type' => 0,
                 'code' => 4,
-                'msg' => '请填充完整信息'
+                'msg' => '请先完成实名认证'
             );
             $this->ajaxReturn($data);
         }
@@ -88,7 +88,7 @@ class AdverController extends HomeController
             $data = array(
                 'type' => 0,
                 'code' => 4,
-                'msg' => '请填充完整信息'
+                'msg' => '请先完成实名认证'
             );
             $this->ajaxReturn($data);
         }
@@ -105,7 +105,7 @@ class AdverController extends HomeController
             $data = array(
                 'type' => 0,
                 'code' => 4,
-                'msg' => '请填充完整信息'
+                'msg' => '请绑定电子邮件'
             );
             $this->ajaxReturn($data);
         }
@@ -114,7 +114,7 @@ class AdverController extends HomeController
             $data = array(
                 'type' => 0,
                 'code' => 4,
-                'msg' => '请填充完整信息'
+                'msg' => '请绑定手机'
             );
             $this->ajaxReturn($data);
         }
@@ -181,7 +181,7 @@ class AdverController extends HomeController
         }
 
         if ($message == ''){
-            $this->ajaxError('请输入交易说明');
+            $this->ajaxError('请输入广告备注');
         }
 
         $rand=rand(11,99);

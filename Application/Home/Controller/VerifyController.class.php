@@ -28,7 +28,7 @@ class VerifyController extends HomeController
         }
 
         $code = rand(111111, 999999);
-        $content = '尊敬的用户： 您的验证码是：'.$code .'。你正在进行注册操作，请不要把验证码泄露给其他人。 感谢您对T-Bees的支持,祝您生活愉快！ 【T-Bees】';
+        $content = '尊敬的用户： 您的验证码是：'.$code .'。你正在进行注册操作，请不要把验证码泄露给其他人。 感谢您对SPEEDOTC的支持,祝您生活愉快！ 【SPEEDOTC】';
 
         // $email = M('ConfigEmail')->where(array(
         //     'id' => 1
@@ -68,7 +68,7 @@ class VerifyController extends HomeController
         }
 
         $code = rand(111111, 999999);
-        $content = '尊敬的用户： 您的验证码是：'. $code .'。你正在进行找回密码操作，请不要把验证码泄露给其他人。 感谢您对T-Bees的支持,祝您生活愉快！ 【T-Bees】';
+        $content = '尊敬的用户： 您的验证码是：'. $code .'。你正在进行找回密码操作，请不要把验证码泄露给其他人。 感谢您对SPEEDOTC的支持,祝您生活愉快！ 【SPEEDOTC】';
 
         // $email = M('ConfigEmail')->where(array(
         //     'id' => 1
@@ -100,7 +100,7 @@ class VerifyController extends HomeController
         ))->find();
 
         $code = rand(111111, 999999);
-        $content = '尊敬的用户： 您的验证码是：' . $code . '。您正在进行修改资金密码操作，请不要把验证码泄露给其他人。 感谢您对T-Bees的支持,祝您生活愉快！ 【T-Bees】';
+        $content = '尊敬的用户： 您的验证码是：' . $code . '。您正在进行修改资金密码操作，请不要把验证码泄露给其他人。 感谢您对SPEEDOTC的支持,祝您生活愉快！ 【SPEEDOTC】';
 
         // $email = M('ConfigEmail')->where(array(
         //     'id' => 1
@@ -132,7 +132,7 @@ class VerifyController extends HomeController
         ))->find();
 
         $code = rand(111111, 999999);
-        $content = '尊敬的用户： 您的验证码是：' . $code . '。您正在进行转出操作，请不要把验证码泄露给其他人。 感谢您对T-Bees的支持,祝您生活愉快！ 【T-Bees】';
+        $content = '尊敬的用户： 您的验证码是：' . $code . '。您正在进行转出操作，请不要把验证码泄露给其他人。 感谢您对SPEEDOTC的支持,祝您生活愉快！ 【SPEEDOTC】';
 
         // $email = M('ConfigEmail')->where(array(
         //     'id' => 1

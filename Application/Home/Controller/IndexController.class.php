@@ -20,7 +20,7 @@ class IndexController extends HomeController
                 ->where(array(
                     'a.is_vip' => 1,
                     'b.trade_type' => 1,
-                    'b.coin_type' =>'usdp',
+                    'b.coin_type' =>'usdt',
                     'b.status' =>1
                 ))->select();
 
@@ -31,7 +31,7 @@ class IndexController extends HomeController
             ->join('left join trade_user as b on a.userid = b.id left join trade_user_credit as c on a.userid=c.userid')
             ->where(array(
                 'a.userid' => $randUserid['id'],
-                'a.coin_type' => 'usdp',
+                'a.coin_type' => 'usdt',
                 'a.trade_type' => 1,
                 'a.status' =>1
                 ))->limit(1)->select();
@@ -42,7 +42,7 @@ class IndexController extends HomeController
             ->where(array(
                 'a.is_vip' => 1,
                 'b.trade_type' => 2,
-                'b.coin_type' =>'usdp',
+                'b.coin_type' =>'usdt',
                 'b.status' =>1
             ))->select();
 
@@ -53,7 +53,7 @@ class IndexController extends HomeController
             ->join('left join trade_user as b on a.userid = b.id left join trade_user_credit as c on a.userid=c.userid')
             ->where(array(
                 'a.userid' => $randUserid['id'],
-                'a.coin_type' => 'usdp',
+                'a.coin_type' => 'usdt',
                 'a.trade_type' => 2,
                 'a.status' =>1
             ))->limit(1)->select();

@@ -31,10 +31,11 @@ class LoginController extends HomeController
         }
 
         if (!check($email, 'email')) {
-            $this->ajaxError('手机号格式错误');
+            $this->ajaxError('邮箱格式错误');
         }
 
-        if (!check($password, 'password')) {
+
+        if (strlen($password) !=32) {
             $this->ajaxError('登录密码格式错误');
         }
 
@@ -51,8 +52,15 @@ class LoginController extends HomeController
         ))->find()){
             $this->ajaxError('昵称已经存在');
         }
-        if (!$invit_1)
+        if ($invit_1)
         {
+            $invit_user=M('User')->where(array(
+                'invit' =>$invit_1
+            ))->find();
+            if (!$invit_user)
+            {
+                $this->ajaxError('邀请人不存在,请重新确认');
+            }
             $invit_2 = M('User')->where(array(
                 'invit' => $invit_1
             ))->getField('invit_1');
@@ -112,7 +120,7 @@ class LoginController extends HomeController
             $this->ajaxError('用户名格式错误');
         }
 
-        if (!check($password, 'password')) {
+        if (strlen($password) != 32) {
             $this->ajaxError('登录密码格式错误');
         }
 
@@ -127,7 +135,8 @@ class LoginController extends HomeController
             $this->ajaxError('用户名错误');
         }
 
-        if (md5($password) != $u['password']) {
+
+        if ($password != $u['password']) {
             $this->ajaxError('密码错误');
         }
 
@@ -194,15 +203,18 @@ class LoginController extends HomeController
     }
 
 
-    //设置交易密码
+    //设置资金密码
     public function setPaypasswordUp($paypassword, $repaypassword, $login_password)
     {
         if (!userid()) {
             $this->ajaxError('请登录!');
         }
 
-        if (!check($paypassword, 'password')) {
-            $this->ajaxError('交易密码格式错误');
+//        if (!check($paypassword, 'password')) {
+//            $this->ajaxError('资金密码格式错误');
+//        }
+        if (strlen($paypassword) != 32) {
+            $this->ajaxError('资金密码格式错误');
         }
 
         if ($paypassword != $repaypassword) {
@@ -213,18 +225,18 @@ class LoginController extends HomeController
             'id' => userid()
         ))->find();
 
-        if ($user['password'] != md5($login_password)) {
+        if ($user['password'] != $login_password) {
             $this->ajaxError('登录密码错误');
         }
 
-        if ($user['password'] == md5($paypassword)) {
-            $this->ajaxError('交易密码不能和登录密码一样');
+        if ($user['password'] == $paypassword) {
+            $this->ajaxError('资金密码不能和登录密码一样');
         }
 
         if (M('User')->where(array(
             'id' => userid()
         ))->save(array(
-            'paypassword' => md5($paypassword)
+            'paypassword' => $paypassword
         ))
         ) {
             $this->ajaxSuccess('操作成功');

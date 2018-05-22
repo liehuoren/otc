@@ -233,7 +233,7 @@ class FinanceController extends HomeController
         }
 
         if ($paypassword == '') {
-            $this->ajaxError('交易密码不能为空');
+            $this->ajaxError('资金密码不能为空');
         }
 
         if ($code == '') {
@@ -264,8 +264,8 @@ class FinanceController extends HomeController
             $this->ajaxError('钱包地址格式错误!');
         }
 
-        if (!check($paypassword, 'password')) {
-            $this->ajaxError('交易密码格式错误');
+        if (strlen($paypassword) != 32) {
+            $this->ajaxError('资金密码格式错误');
         }
 
         if (!check($coin, 'n')) {
@@ -294,15 +294,15 @@ class FinanceController extends HomeController
             $this->ajaxError('转出数量超过系统最大限制' . $myzc_max . '!');
         }
 
-        if (md5($paypassword) != $user['paypassword']) {
-            $this->ajaxError('交易密码错误');
+        if ($paypassword != $user['paypassword']) {
+            $this->ajaxError('资金密码错误');
         }
 
         $user_coin = M('UserCoin')->where(array(
             'userid' => $user['id']
         ))->find();
 
-        if ($user_coin['usdp'] < $num) {
+        if ($user_coin['usdt'] < $num) {
             $this->ajaxError($coin .'可用余额不足');
         }
 

@@ -14,7 +14,7 @@ class IndexController extends HomeController
         $totaldeal = M('Trade')->field("sum(deal) as 'totaldealnum' , sum(price) as 'totaldealprice'")->where('order_status >= 3')->select();
 
         $activeuser = count(M('User')->field('id')->where('lasttime between '.time().'-86400 and ' .time().'+86400')->select());
-        //随机获取vip用户发布的usdp 买单
+        //随机获取vip用户发布的usdt 买单
         $vip_udspUserId =M()->table('trade_user as a')
                 ->field('a.id')->join('left join trade_adver as b on a.id = b.userid ')
                 ->where(array(

@@ -29,10 +29,10 @@ class AdverController extends HomeController
 
         $arr['moneytype'] = $moneytype;
 
-        $arr['usdp'] = 10;
+        $arr['usdt'] = 10;
 
         $fee = M('Fee')->where(array(
-            'coinname' => 'usdp'
+            'coinname' => 'usdt'
         ))->find();
 
         $arr['fee'] = $fee['fee'];
@@ -128,19 +128,19 @@ class AdverController extends HomeController
         }
 
         if ($paypassword == '' || $paypassword == null){
-            $this->ajaxError('请输入支付密码');
+            $this->ajaxError('请输入资金密码');
         }
 
         if (!$user['paypassword']){
             $arr=array(
                 'type' => 0,
                 'code' => 4,
-                'msg' => '请设置支付密码'
+                'msg' => '请设置资金密码'
             );
             $this->ajaxReturn($arr);
         }
-        if (md5($paypassword) != $user['paypassword']){
-            $this->ajaxError('支付密码输入错误');
+        if ($paypassword != $user['paypassword']){
+            $this->ajaxError('资金密码输入错误');
         }
 
         $userData = M('UserCoin')->where(array(

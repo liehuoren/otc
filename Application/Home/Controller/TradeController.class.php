@@ -262,13 +262,13 @@ class TradeController extends HomeController
         if ($userid == $tradeData['trade_id']) {
             if ($tradeData['type'] == 1){
                 if ($paypassword == NULL){
-                    $this->ajaxError('交易密码不能为空');
+                    $this->ajaxError('资金密码不能为空');
                 }
                 $userpaypassword = M('User')->where(array(
                     'id' => $userid
                 ))->getField('paypassword');
-                if (md5($paypassword) != $userpaypassword) {
-                    $this->ajaxError('交易密码错误');
+                if ($paypassword != $userpaypassword) {
+                    $this->ajaxError('资金密码错误');
                 }
             }
         }
@@ -276,13 +276,13 @@ class TradeController extends HomeController
         if ($userid == $tradeData['userid']) {
             if ($tradeData['type'] == 2){
                 if ($paypassword == NULL){
-                    $this->ajaxError('交易密码不能为空');
+                    $this->ajaxError('资金密码不能为空');
                 }
                 $userpaypassword = M('User')->where(array(
                     'id' => $userid
                 ))->getField('paypassword');
-                if (md5($paypassword) != $userpaypassword) {
-                    $this->ajaxError('交易密码错误');
+                if ($paypassword != $userpaypassword) {
+                    $this->ajaxError('资金密码错误');
                 }
             }
         }

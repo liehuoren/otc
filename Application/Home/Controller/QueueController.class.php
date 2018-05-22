@@ -236,7 +236,7 @@ class QueueController extends Controller
             exit('没有需要转的数据');
         }
         $coin = M('Coin')->where(array(
-            'name' => 'usdp'
+            'name' => 'usdt'
         ))->find();
 
         $dj_address = $coin['dj_zj'];
@@ -316,7 +316,7 @@ class QueueController extends Controller
         }
 
         $coin = M('Coin')->where(array(
-            'name' => 'usdp'
+            'name' => 'usdt'
         ))->find();
 
         $dj_address = $coin['dj_zj'];
@@ -329,7 +329,7 @@ class QueueController extends Controller
 
         foreach ($myzrInfo as $k => $v) {
 
-            if ($v['coinname'] == 'usdp') {
+            if ($v['coinname'] == 'usdt') {
                 continue;
             }
 
@@ -339,7 +339,7 @@ class QueueController extends Controller
                 echo "eth手续费不足:";
                 continue;
             }else{
-                if ($v['coinname'] == 'usdp') {
+                if ($v['coinname'] == 'usdt') {
                     $tokenJson = $eth->eth_contract_getBalance($coin['contact_address'],$v['username']);
                     $gas = $eth->encode_dec($coin['gas']);
                     $gasPrice = $eth->encode_dec($coin['gasprice']);
@@ -350,10 +350,10 @@ class QueueController extends Controller
                     $inputdata = $coin['method_id'] . $dizhi . $real_num;
 
                     $userCoin = M('UserCoin')->where(array(
-                        'usdpb' => $v['username']
+                        'usdtb' => $v['username']
                     ))->find();
 
-                    $sendrs = $eth->eth_sendTransaction($v['username'], $userCoin['usdps'], 0, $coin['contact_address'], false, $inputdata, $gas, $gasPrice);
+                    $sendrs = $eth->eth_sendTransaction($v['username'], $userCoin['usdts'], 0, $coin['contact_address'], false, $inputdata, $gas, $gasPrice);
                 }
 
                 if ($v['coinname'] == 'eth') {

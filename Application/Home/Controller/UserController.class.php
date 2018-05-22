@@ -34,9 +34,11 @@ class UserController extends HomeController
         }
 
         $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "btc"')->select();
-        $tradeUsdpTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "usdp"')->select();
+        $tradeEthTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "eth"')->select();
+        $tradeUsdpTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "usdt"')->select();
         $userData['historydeal'] = $tradeBtcTotal[0]['deal'] + '0';
         $userData['historyusdpdeal'] = $tradeUsdpTotal[0]['deal'] + '0';
+        $userData['historyethdeal'] = $tradeEthTotal[0]['deal'] + '0';
         $userData['historyprice'] = $tradeBtcTotal[0]['price'] + '0';
         $this->ajaxReturn($userData, 'JSON');
         $this->display();
@@ -172,11 +174,11 @@ class UserController extends HomeController
 
         $this->checkLog($userid, $token);
 
-        if (!check($oldpassword, 'password')) {
+        if (strlen($oldpassword) != 32) {
             $this->ajaxError('旧登录密码格式错误');
         }
 
-        if (!check($newpassword, 'password')) {
+        if (strlen($newpassword) != 32) {
             $this->ajaxError('新登录密码格式错误');
         }
 
@@ -188,14 +190,14 @@ class UserController extends HomeController
             'id' => $userid
         ))->getField('password');
 
-        if (md5($oldpassword) != $password) {
+        if ($oldpassword != $password) {
             $this->ajaxError('旧登录密码错误');
         }
 
         $rs = M('User')->where(array(
             'id' => $userid
         ))->save(array(
-            'password' => md5($newpassword)
+            'password' => $newpassword
         ));
 
         if ($rs) {
@@ -273,8 +275,8 @@ class UserController extends HomeController
     //找回密码
     public function findPassword($newpassword, $repassword, $userid)
     {
-        if (!check($newpassword, 'password')) {
-            $this->ajaxError('旧交易密码格式错误!');
+        if (strlen($newpassword) != 32) {
+            $this->ajaxError('旧资金密码格式错误!');
         }
 
         if ($newpassword != $repassword) {
@@ -284,7 +286,7 @@ class UserController extends HomeController
         $rs = M('User')->where(array(
             'id' => $userid
         ))->save(array(
-            'password' => md5($newpassword)
+            'password' => $newpassword
         ));
 
         if ($rs) {
@@ -354,7 +356,7 @@ class UserController extends HomeController
 //        }
 //    }
 
-    //修改交易密码
+    //修改资金密码
     public function uppaypassword($newpaypassword, $repaypassword, $userid, $token , $code)
     {
         $this->checkLog($userid, $token);
@@ -390,7 +392,7 @@ class UserController extends HomeController
 
 
 
-        if (!check($newpaypassword, 'password')) {
+        if (strlen($newpaypassword) != 32) {
             $this->ajaxError('资金密码格式错误');
         }
 
@@ -404,14 +406,14 @@ class UserController extends HomeController
 
 
 
-        if (md5($newpaypassword) == $user['password']) {
-            $this->ajaxError('交易密码不能和登录密码相同');
+        if ($newpaypassword == $user['password']) {
+            $this->ajaxError('资金密码不能和登录密码相同');
         }
 
         $rs = M('User')->where(array(
             'id' => $userid
         ))->save(array(
-            'paypassword' => md5($newpaypassword)
+            'paypassword' => $newpaypassword
         ));
 
         if ($rs) {
@@ -425,13 +427,10 @@ class UserController extends HomeController
     {
         $this->checkLog($userid,$token);
 
-        if (!check($paypassword, 'password')) {
-            $this->ajaxError('交易密码格式错误');
+        if (strlen($paypassword) != 32) {
+            $this->ajaxError('资金密码格式错误');
         }
 
-        if (!check($repaypassword, 'password')) {
-            $this->ajaxError('交易密码格式错误');
-        }
 
         if ($paypassword != $repaypassword) {
             $this->ajaxError('两次输入密码不一致');
@@ -440,7 +439,7 @@ class UserController extends HomeController
         $rs = M('User')->where(array(
             'id' => $userid
         ))->save(array(
-            'paypassword' => md5($paypassword)
+            'paypassword' => $paypassword
         ));
 
         if ($rs) {

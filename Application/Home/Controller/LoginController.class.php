@@ -82,7 +82,7 @@ class LoginController extends HomeController
         $rs[] = $mo->table('trade_user')->add(array(
             'username' => $username,
             'email' => $email,
-            'password' => md5($password),
+            'password' => $password,
             'tpwdsetting' => 1,
             'addip' => get_client_ip(),
             'addr' => get_city_ip(),

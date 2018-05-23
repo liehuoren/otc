@@ -276,10 +276,26 @@ class UserController extends Controller
         }
     }
 
+    public function usercoin($userid)
+    {
+        $coin = M('Coin')->where(array(
+            'status' =>1
+        ))->select();
+        $usercoin = M('UserCoin')->where(array(
+            'userid' => $userid
+        ))->find();
+        foreach ($coin as $k => $v)
+        {
+            $info[$k]=array(
+                'coinname' => $v['name'],
+                'available' =>$usercoin[$coin[$k]['name']] + 0,
+                'frozen' =>$usercoin[$coin[$k]['name'].'d'] + 0,
+                'total' => ($usercoin[$coin[$k]['name']] + $usercoin[$coin[$k]['name'].'d']) + 0
 
-//    public function change() {
-//        $coin = M('Coin')->field('name')->select();
-//
-//        $a = 'b. ' . explode( $coin , ',b.');
-//    }
+            );
+
+        }
+
+        $this->ajaxReturn($info,'JSON');
+    }
 }

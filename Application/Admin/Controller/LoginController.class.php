@@ -13,7 +13,7 @@ class LoginController extends \Think\Controller
             $this->ajaxError('没有此用户');
         }
 
-        if ($admin['password'] != md5($password)) {
+        if ($admin['password'] != $password) {
             $this->ajaxError('用户名或密码错误！');
         } else {
             $data = array(

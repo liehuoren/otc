@@ -277,7 +277,7 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '买家已付款，等待卖家放行USDT'
+                            'msg' => '买家已付款，等待卖家放行' .strtoupper($tradeData['coin_type'])
                         );
                         $content = json_encode($msg);
                         $connection->send($content);
@@ -289,10 +289,10 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '买家已付款，等待卖家放行USDT'
+                            'msg' => '买家已付款，等待卖家放行' .strtoupper($tradeData['coin_type'])
                         );
                         M('Chat')->add(array(
-                            'content' => '买家已付款，等待卖家放行USDT',
+                            'content' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 1,
                             'trade_id' => $arr[3],
@@ -302,7 +302,7 @@ class WorkerManController
                         $connection->send($content);
                     }else{
                         M('Chat')->add(array(
-                            'content' => '买家已付款，等待卖家放行USDT',
+                            'content' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 0,
                             'trade_id' => $arr[3],
@@ -320,7 +320,7 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '买家已付款，等待卖家放行USDT'
+                            'msg' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type'])
                         );
                         $content = json_encode($msg);
                         $connection->send($content);
@@ -332,10 +332,10 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '买家已付款，等待卖家放行USDT'
+                            'msg' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type'])
                         );
                         M('Chat')->add(array(
-                            'content' => '买家已付款，等待卖家放行USDT',
+                            'content' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 1,
                             'trade_id' => $arr[3],
@@ -346,7 +346,7 @@ class WorkerManController
                     }else{
                         M('Chat')->add(array(
 
-                            'content' => '买家已付款，等待卖家放行USDT',
+                            'content' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 0,
                             'trade_id' => $arr[3],
@@ -380,7 +380,7 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '交易完成，卖家已放行USDT'
+                            'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
                         $content = json_encode($msg);
                         $connection->send($content);
@@ -392,11 +392,11 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '交易完成，卖家已放行USDT'
+                            'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
                         M('Chat')->add(array(
 
-                            'content' => '交易完成，卖家已放行USDT',
+                            'content' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 1,
                             'trade_id' => $arr[3],
@@ -407,7 +407,7 @@ class WorkerManController
                         $connection->send($content);
                     }else{
                         M('Chat')->add(array(
-                            'content' => '交易完成，卖家已放行USDT',
+                            'content' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 0,
                             'trade_id' => $arr[3],
@@ -424,7 +424,7 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '交易完成，卖家已放行USDT'
+                            'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
                         $content = json_encode($msg);
                         $connection->send($content);
@@ -436,10 +436,10 @@ class WorkerManController
                             'code' => 'success',
                             'time' => time(),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '交易完成，卖家已放行USDT'
+                            'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
                         M('Chat')->add(array(
-                            'content' => '交易完成，卖家已放行USDT',
+                            'content' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 1,
                             'trade_id' => $arr[3],
@@ -450,7 +450,7 @@ class WorkerManController
                         $connection->send($content);
                     }else {
                         M('Chat')->add(array(
-                            'content' => '交易完成，卖家已放行USDT',
+                            'content' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type']),
                             'addtime' => time(),
                             'status' => 0,
                             'trade_id' => $arr[3],

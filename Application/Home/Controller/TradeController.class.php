@@ -327,7 +327,7 @@ class TradeController extends HomeController
                 ));
 
                 $rs[] = $m->table('trade_trade')->where('id=' .$id)->setInc('fee' , $feenum);
-//                dump($m->getLastSql());die;
+
             }
             //买单
 
@@ -475,6 +475,7 @@ class TradeController extends HomeController
                     $this->ajaxError("佣金发放失败");
                 }
 
+
                 if ($result){
                     $arr['mail_status']='33333';//邮件下发ok
                 }else{
@@ -597,9 +598,10 @@ class TradeController extends HomeController
         }
     }
 
-    public function rewardfee($tradeid = 90)
+    public function rewardfee($tradeid)
     {
         $res = null;
+
         if (!$tradeid) {
             return $res;
         }
@@ -649,7 +651,14 @@ class TradeController extends HomeController
             ))->find();
         }
 
+        if (!$trade['fee'])
+        {
+            return $res;
+        }
         $fee = M('InvitFee')->find();
+        if (!$fee){
+            return $res;
+        }
         if ($invit1uid)
         {
 //            $reward1fee = round( $trade['fee'] * $fee['invit1']/100 , 8);
@@ -667,7 +676,7 @@ class TradeController extends HomeController
 
         if ($invit1uid['id'])
         {
-            $rs[]=$m->table('trade_user_coin')->where(array(
+            $rs['invit1']=$m->table('trade_user_coin')->where(array(
                 'userid' => $invit1uid['id']
             ))->setInc($trade['coin_type'],$reward1fee);
 
@@ -675,7 +684,7 @@ class TradeController extends HomeController
 
         if ($invit2uid['id'])
         {
-            $rs[]=$m->table('trade_user_coin')->where(array(
+            $rs['invit2']=$m->table('trade_user_coin')->where(array(
                 'userid' => $invit2uid['id']
             ))->setInc($trade['coin_type'],$reward2fee);
         }
@@ -683,7 +692,7 @@ class TradeController extends HomeController
 
 
 
-        $rs[] =$m->table('trade_invit_reward')->add(array(
+        $rs['info'] =$m->table('trade_invit_reward')->add(array(
             'trade_user' => $trade['trade_id'],
             'tradeid'=>$trade['id'] ,
             'invit1_id' =>$invit1uid['id'],
@@ -693,7 +702,7 @@ class TradeController extends HomeController
             'coin_type'=>$trade['coin_type'],
             'trade_time'=>$trade['addtime']
         ));
-
+        $rs['tradeid']=$tradeid;
         if (check_arr($rs)){
             $m->execute('commit');
             $m->execute('unlock tables');

@@ -34,12 +34,11 @@ class UserController extends HomeController
         }
 
         $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "btc"')->select();
-        $tradeEthTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "eth"')->select();
         $tradeUsdpTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "usdt"')->select();
+        $tradePriceTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') ')->select();
         $userData['historydeal'] = $tradeBtcTotal[0]['deal'] + '0';
         $userData['historyusdpdeal'] = $tradeUsdpTotal[0]['deal'] + '0';
-        $userData['historyethdeal'] = $tradeEthTotal[0]['deal'] + '0';
-        $userData['historyprice'] = $tradeBtcTotal[0]['price'] + '0';
+        $userData['historyprice'] = $tradePriceTotal[0]['price'] + '0';
         $this->ajaxReturn($userData, 'JSON');
         $this->display();
     }
@@ -50,8 +49,16 @@ class UserController extends HomeController
 
         $data = I('post.');
 
+
         if (!check($data['moble'], 'moble')) {
             $this->ajaxError('手机号码格式有误');
+        }
+
+        if (M('User')->where(array(
+            'moble' => I('post.moble')
+        ))->find())
+        {
+            $this->ajaxError('该手机号已注册');
         }
 
         $rs = M('User')->where(array(
@@ -73,6 +80,12 @@ class UserController extends HomeController
 
         if (!check($data['moble'], 'moble')) {
             $this->ajaxError('手机号码格式有误');
+        }
+        if (M('User')->where(array(
+            'moble' => I('post.moble')
+        ))->find())
+        {
+            $this->ajaxError('该手机号已注册');
         }
         $rs = M('User')->where(array(
             'id' => $data['userid']
@@ -356,7 +369,7 @@ class UserController extends HomeController
 //        }
 //    }
 
-    //修改资金密码
+    //修改交易密码
     public function uppaypassword($newpaypassword, $repaypassword, $userid, $token , $code)
     {
         $this->checkLog($userid, $token);
@@ -430,6 +443,7 @@ class UserController extends HomeController
         if (strlen($paypassword) != 32) {
             $this->ajaxError('资金密码格式错误');
         }
+
 
 
         if ($paypassword != $repaypassword) {

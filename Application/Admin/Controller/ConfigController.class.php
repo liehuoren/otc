@@ -85,9 +85,9 @@ class ConfigController extends Controller
         if ($_POST['id']) {
             $rs = M('Coin')->save($_POST);
         } else {
-            if (! check($_POST['name'], 'coinname')) {
-                $this->ajaxError('币种简称只能是小写字母！');
-            }
+//            if (! check($_POST['name'], 'coinname')) {
+//                $this->ajaxError('币种简称只能是小写字母！');
+//            }
 
 
             $_POST['name'] = strtolower($_POST['name']);
@@ -102,12 +102,12 @@ class ConfigController extends Controller
                 $this->ajaxError('币种存在！');
             }
 
-            $rea = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . '` DECIMAL(20,8) UNSIGNED NOT NULL');
-            $reb = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . 'd` DECIMAL(20,8) UNSIGNED NOT NULL ');
-            $rec = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . 'b` VARCHAR(200) NOT NULL ');
-            if ($_POST['type'] == 'peb' || $_POST['type'] == 'eth') {
-                $rea = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . 's` VARCHAR(200) NOT NULL');
-            }
+//            $rea = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . '` DECIMAL(20,8) UNSIGNED NOT NULL');
+//            $reb = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . 'd` DECIMAL(20,8) UNSIGNED NOT NULL ');
+//            $rec = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . 'b` VARCHAR(200) NOT NULL ');
+//            if ($_POST['type'] == 'peb' || $_POST['type'] == 'eth') {
+//                $rea = M()->execute('ALTER TABLE  `trade_user_coin` ADD  `' . $_POST['name'] . 's` VARCHAR(200) NOT NULL');
+//            }
             $rs = M('Coin')->add($_POST);
         }
 

@@ -26,25 +26,6 @@ class ConfigController extends Controller
 
     public function coinEdit()
     {
-//        $_POST['zc_fee'] = floatval($_POST['zc_fee']);
-//
-//        if ($_POST['zc_fee'] && (($_POST['zc_fee'] < 0.01) || (100 < $_POST['zc_fee']))) {
-//            $this->ajaxError('转出手续费只能是0.01--100之间(不用填写%)！');
-//        }
-
-//        if ($_POST['zc_user']) {
-//            if (! check($_POST['zc_user'], 'dw')) {
-//                $this->ajaxError('官方手续费地址格式不正确！');
-//            }
-//
-//            $ZcUser = M('UserCoin')->where(array(
-//                $_POST['name'] . 'b' => $_POST['zc_user']
-//            ))->find();
-//
-//            if (!$ZcUser) {
-//                $this->ajaxError('在系统中查询不到[官方手续费地址],请务必填写正确！');
-//            }
-//        }
         if ($_POST['dj_dk']) {
             $this->ajaxError('违规操作');
         }
@@ -77,18 +58,16 @@ class ConfigController extends Controller
             $this->ajaxError('违规操作');
         }
 
-        $_POST['fee'] = floatval($_POST['fee']);
+        $_POST['fee'] = floatval($_POST['zc_fee_two']);
         $_POST['zc_min'] = intval($_POST['zc_min']);
         $_POST['zc_max'] = intval($_POST['zc_max']);
 
 
         if ($_POST['id']) {
-            $rs = M('Coin')->save($_POST);
+            $rs = M('Coin')->where(array(
+                'id' => $_POST['id']
+            ))->save($_POST);
         } else {
-//            if (! check($_POST['name'], 'coinname')) {
-//                $this->ajaxError('币种简称只能是小写字母！');
-//            }
-
 
             $_POST['name'] = strtolower($_POST['name']);
 

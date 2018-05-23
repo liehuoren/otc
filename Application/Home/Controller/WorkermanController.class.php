@@ -82,6 +82,7 @@ class WorkerManController
                     }
                     $msg = array(array(
                         'msg' => '买家已拍下，等待买家付款',
+                        'time' => date("Y-m-d H:i:s" , time()),
                         'order_status' => $tradeInfo['order_status'],
                         'symbol' => 0,
                         'chatlogs' => $chatLogs
@@ -109,6 +110,7 @@ class WorkerManController
 
                     $msg = array(array(
                         'msg' => '买家已拍下，等待买家付款',
+                        'time' => date("Y-m-d H:i:s" , time()),
                         'order_status' => $tradeInfo['order_status'],
                         'symbol' => 0,
                         'chatlogs' => $chatLogs
@@ -275,7 +277,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '买家已付款，等待卖家放行' .strtoupper($tradeData['coin_type'])
                         );
@@ -287,7 +289,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '买家已付款，等待卖家放行' .strtoupper($tradeData['coin_type'])
                         );
@@ -318,7 +320,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type'])
                         );
@@ -330,7 +332,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '买家已付款，等待卖家放行'.strtoupper($tradeData['coin_type'])
                         );
@@ -378,7 +380,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
@@ -390,7 +392,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
@@ -422,7 +424,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
@@ -434,7 +436,7 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
                             'msg' => '交易完成，卖家已放行'.strtoupper($tradeData['coin_type'])
                         );
@@ -482,7 +484,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经发起申诉'
                             );
@@ -494,7 +496,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经发起申诉'
                             );
@@ -524,7 +526,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经发起申诉'
                             );
@@ -536,7 +538,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经发起申诉'
                             );
@@ -568,7 +570,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经发起申诉'
                             );
@@ -580,7 +582,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经发起申诉'
                             );
@@ -610,7 +612,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经发起申诉'
                             );
@@ -622,7 +624,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经发起申诉'
                             );
@@ -670,7 +672,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经取消申诉'
                             );
@@ -682,7 +684,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经取消申诉'
                             );
@@ -712,7 +714,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经取消申诉'
                             );
@@ -724,7 +726,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经取消申诉'
                             );
@@ -757,7 +759,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经取消申诉'
                             );
@@ -769,7 +771,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '卖家已经取消申诉'
                             );
@@ -800,7 +802,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经取消申诉'
                             );
@@ -812,7 +814,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经取消申诉'
                             );
@@ -871,7 +873,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经取消交易'
                             );
@@ -883,7 +885,7 @@ class WorkerManController
                             $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                             $msg = array(
                                 'code' => 'success',
-                                'time' => time(),
+                                'time' => date("Y-m-d H:i:s" , time()),
                                 'order_status' => $tradeData['order_status'],
                                 'msg' => '买家已经取消交易'
                             );
@@ -925,9 +927,9 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '卖家已经取消交易'
+                            'msg' => '买家已经取消交易'
                         );
                         $content = json_encode($msg);
                         $connection->send($content);
@@ -937,12 +939,12 @@ class WorkerManController
                         $connection = $this->uidConnections['u' . $uid . 'd' . $arr[3]];
                         $msg = array(
                             'code' => 'success',
-                            'time' => time(),
+                            'time' => date("Y-m-d H:i:s" , time()),
                             'order_status' => $tradeData['order_status'],
-                            'msg' => '卖家已经取消交易'
+                            'msg' => '买家已经取消交易'
                         );
                         M('Chat')->add(array(
-                            'content' => '卖家已经取消交易',
+                            'content' => '买家已经取消交易',
                             'addtime' => time(),
                             'status' => 1,
                             'trade_id' => $arr[3],
@@ -952,7 +954,7 @@ class WorkerManController
                         $connection->send($content);
                     }else{
                         M('Chat')->add(array(
-                            'content' => '卖家已经取消交易',
+                            'content' => '买家已经取消交易',
                             'addtime' => time(),
                             'status' => 0,
                             'trade_id' => $arr[3],

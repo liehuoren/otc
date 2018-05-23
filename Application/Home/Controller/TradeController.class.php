@@ -4,7 +4,7 @@ namespace Home\Controller;
 
 class TradeController extends HomeController
 {
-    public function index($id  ,$userid  , $token )
+    public function index($id, $userid, $token)
     {
 
         $this->checkLog($userid, $token);
@@ -25,21 +25,21 @@ class TradeController extends HomeController
         if ($tradeData['type'] == 1) {
             if ($userid == $tradeData['userid']) {
                 $userData = M()->table('trade_trade as a')
-                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.message')
+                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.price as dprice,d.message')
                     ->join('left join trade_user as b on a.trade_id = b.id left join trade_user_credit as c on a.trade_id = c.userid left join trade_adver as d on a.adver_id = d.id')
                     ->where("a.id=" . $id)->find();
-                $userData['price']=$userData['price']+'0';
-                $userData['num']=$userData['num']+'0';
+                $userData['price'] = $userData['price'] + '0';
+                $userData['num'] = $userData['num'] + '0';
                 $userData['symbol'] = 1;
             }
 
             if ($userid == $tradeData['trade_id']) {
                 $userData = M()->table('trade_trade as a')
-                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.message')
+                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.price as dprice,d.message')
                     ->join('left join trade_user as b on a.userid = b.id left join trade_user_credit as c on a.userid = c.userid left join trade_adver as d on a.adver_id = d.id')
                     ->where("a.id=" . $id)->find();
-                $userData['price']=$userData['price']+'0';
-                $userData['num']=$userData['num']+'0';
+                $userData['price'] = $userData['price'] + '0';
+                $userData['num'] = $userData['num'] + '0';
                 $userData['symbol'] = 2;
             }
         }
@@ -47,27 +47,27 @@ class TradeController extends HomeController
         if ($tradeData['type'] == 2) {
             if ($userid == $tradeData['userid']) {
                 $userData = M()->table('trade_trade as a')
-                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.message')
+                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.price as dprice,d.message')
                     ->join('left join trade_user as b on a.trade_id = b.id left join trade_user_credit as c on a.trade_id = c.userid left join trade_adver as d on a.adver_id = d.id')
                     ->where("a.id=" . $id)->find();
 
-                $userData['price']=$userData['price']+'0';
-                $userData['num']=$userData['num']+'0';
+                $userData['price'] = $userData['price'] + '0';
+                $userData['num'] = $userData['num'] + '0';
                 $userData['symbol'] = 2;
             }
 
             if ($userid == $tradeData['trade_id']) {
                 $userData = M()->table('trade_trade as a')
-                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.message')
+                    ->field('a.mum,a.addtime as starttime,a.paycode,a.order_status,a.id,a.userid,a.trade_id,a.order_id,a.status,a.price,a.num,a.pay_type,a.coin_type,b.personalnote,b.addtime,b.username,b.headimg,b.sm_is_ok,b.email_is_ok,c.first_tradetime,c.trade_num,c.user_praise,c.user_trust,d.price as dprice,d.message')
                     ->join('left join trade_user as b on a.userid = b.id left join trade_user_credit as c on a.userid = c.userid left join trade_adver as d on a.adver_id = d.id')
                     ->where("a.id=" . $id)->find();
 
-                $userData['price']=$userData['price']+'0';
-                $userData['num']=$userData['num']+'0';
+                $userData['price'] = $userData['price'] + '0';
+                $userData['num'] = $userData['num'] + '0';
                 $userData['symbol'] = 1;
             }
         }
-        $userData['pay_type'] = explode(',' , $userData['pay_type']);
+        $userData['pay_type'] = explode(',', $userData['pay_type']);
         $userData['endtime'] = $userData['starttime'] - 1800;
         $userData['starttime'] = $userData['starttime'] - (time() - $userData['starttime']);
 
@@ -83,7 +83,7 @@ class TradeController extends HomeController
 
 
     //评价  usertype  1代码买家 2代码卖家
-    public function evaluate($id , $user_praise , $userid , $token)
+    public function evaluate($id, $user_praise, $userid, $token)
     {
         $this->checkLog($userid, $token);
         $tradeData = M('Trade')->where(array(
@@ -140,7 +140,7 @@ class TradeController extends HomeController
 
             $trade_num = $creditData['trade_num'] + 1;
 
-            $praise = $creditData['praise_num'] +1;
+            $praise = $creditData['praise_num'] + 1;
 
             $user_praise = ($creditData['user_praise'] + $user_praise * 20) / $creditData['praise_num'];
 
@@ -162,7 +162,7 @@ class TradeController extends HomeController
     }
 
     //标记已付款  id是订单id
-    public function pay($id, $userid, $token ,$paypassword = NULL)
+    public function pay($id, $userid, $token, $paypassword = NULL)
     {
         $this->checkLog($userid, $token);
         //TODO 增加订单状态where  已修改
@@ -189,10 +189,10 @@ class TradeController extends HomeController
             if ($tradeData['type'] == 2) {
                 $rss = M('UserCredit')->where(array(
                     'userid' => $userid
-                ))->setInc('trade_num' ,1);
+                ))->setInc('trade_num', 1);
                 $res = M('UserCredit')->where(array(
                     'userid' => $tradeData['trade_id']
-                ))->setInc('trade_num' ,1);
+                ))->setInc('trade_num', 1);
                 $first_trade = M('UserCredit')->where(array(
                     'userid' => $userid
                 ))->getField('first_tradetime');
@@ -221,10 +221,10 @@ class TradeController extends HomeController
             if ($tradeData['type'] == 1) {
                 $rss = M('UserCredit')->where(array(
                     'userid' => $userid
-                ))->setInc('trade_num' ,1);
+                ))->setInc('trade_num', 1);
                 $res = M('UserCredit')->where(array(
                     'userid' => $tradeData['userid']
-                ))->setInc('trade_num' ,1);
+                ))->setInc('trade_num', 1);
                 $first_trade = M('UserCredit')->where(array(
                     'userid' => $userid
                 ))->getField('first_tradetime');
@@ -255,13 +255,13 @@ class TradeController extends HomeController
         ))->getField('fee');
 
         //round 保留小数点后8位
-        $feenum = round($tradeData['num'] * $fee , 8);
+        $feenum = round($tradeData['num'] * $fee, 8);
 
         $trueSellNum = $tradeData['num'] - $feenum;
 
         if ($userid == $tradeData['trade_id']) {
-            if ($tradeData['type'] == 1){
-                if ($paypassword == NULL){
+            if ($tradeData['type'] == 1) {
+                if ($paypassword == NULL) {
                     $this->ajaxError('资金密码不能为空');
                 }
                 $userpaypassword = M('User')->where(array(
@@ -274,8 +274,8 @@ class TradeController extends HomeController
         }
 
         if ($userid == $tradeData['userid']) {
-            if ($tradeData['type'] == 2){
-                if ($paypassword == NULL){
+            if ($tradeData['type'] == 2) {
+                if ($paypassword == NULL) {
                     $this->ajaxError('资金密码不能为空');
                 }
                 $userpaypassword = M('User')->where(array(
@@ -326,7 +326,7 @@ class TradeController extends HomeController
                     'status' => 2
                 ));
 
-                $rs[] = $m->table('trade_trade')->where('id=' .$id)->setInc('fee' , $feenum);
+                $rs[] = $m->table('trade_trade')->where('id=' . $id)->setInc('fee', $feenum);
 
             }
             //买单
@@ -362,24 +362,24 @@ class TradeController extends HomeController
                     'msg' => '付款OK'
                 );
 
-                if ($userid == $tradeData['userid']){
-                    if ($tradeData['type'] == 1){
-                        $email=M('user')->where('id='.$tradeData['trade_id'])->find();
-                        $content ='尊敬的SPEEDOTC用户您好,<br/>用户买家将订单 '.$tradeData['order_id'].' 标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。
+                if ($userid == $tradeData['userid']) {
+                    if ($tradeData['type'] == 1) {
+                        $email = M('user')->where('id=' . $tradeData['trade_id'])->find();
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>用户买家将订单 ' . $tradeData['order_id'] . ' 标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。
                         如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
-                        $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
+                        $result = sendMail($email['email'], '', $content, C('email'), C('emailpassword'));
                     }
-                    if ($tradeData['type'] == 2){
-                        $email=M('user')->where('id='.$tradeData['trade_id'])->find();
-                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，卖家已放行 '.$tradeData['num'].' '.$tradeData['coin_type'].' 。如果您对该订单处理有疑问，请联系客服。';
-                        $result = sendMail($email['email'] ,'',$content , C('email') , C('emailpassword'));
+                    if ($tradeData['type'] == 2) {
+                        $email = M('user')->where('id=' . $tradeData['trade_id'])->find();
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单' . $tradeData['order_id'] . '中' . '，卖家已放行 ' . $tradeData['num'] . ' ' . $tradeData['coin_type'] . ' 。如果您对该订单处理有疑问，请联系客服。';
+                        $result = sendMail($email['email'], '', $content, C('email'), C('emailpassword'));
                     }
                 }
 
-                if ($result){
-                    $arr['mail_status']='11111';//邮件下发ok
-                }else{
-                    $arr['mail_status']='22222'; //邮件下发failed
+                if ($result) {
+                    $arr['mail_status'] = '11111';//邮件下发ok
+                } else {
+                    $arr['mail_status'] = '22222'; //邮件下发failed
                 }
 
                 $this->ajaxReturn($arr, 'JSON');
@@ -455,151 +455,148 @@ class TradeController extends HomeController
                     'id' => $id,
                     'msg' => '收款OK'
                 );
-                if ($userid == $tradeData['trade_id']){
-                    if ($tradeData['type'] == 1){
-                        $email=M('user')->where('id='.$tradeData['userid'])->find();
-                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，卖家已放行 '.$tradeData['num'].' '.$tradeData['coin_type'].' 。如果您对该订单处理有疑问，请联系客服。';
-                        $result = sendMail($email['email'] ,'订单提醒',$content , C('email') , C('emailpassword'));
+                if ($userid == $tradeData['trade_id']) {
+                    if ($tradeData['type'] == 1) {
+                        $email = M('user')->where('id=' . $tradeData['userid'])->find();
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单' . $tradeData['order_id'] . '中' . '，卖家已放行 ' . $tradeData['num'] . ' ' . $tradeData['coin_type'] . ' 。如果您对该订单处理有疑问，请联系客服。';
+                        $result = sendMail($email['email'], '订单提醒', $content, C('email'), C('emailpassword'));
                     }
-                    if ($tradeData['type'] == 2){
-                        $email=M('user')->where('id='.$tradeData['userid'])->find();
-                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单'.$tradeData['order_id'].'中'.'，标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
+                    if ($tradeData['type'] == 2) {
+                        $email = M('user')->where('id=' . $tradeData['userid'])->find();
+                        $content = '尊敬的SPEEDOTC用户您好,<br/>在您的订单' . $tradeData['order_id'] . '中' . '，标记为“已付款”状态，请及时登录收款账户查看！长时间不处理订单将对您在本平台的信誉造成影响。如果您没有收到对方付款，可以尽快联系对方或者向管理员申诉！';
 
-                        $result = sendMail($email['email'] ,'订单提醒',$content , C('email') , C('emailpassword'));
+                        $result = sendMail($email['email'], '订单提醒', $content, C('email'), C('emailpassword'));
                     }
                 }
                 //发放佣金
-                $arr['reward']=$this->rewardfee($id);
-                if (!$arr['reward'])
-                {
-                    $this->ajaxError("佣金发放失败");
-                }
+                $reward = $this->rewardfee($id);
 
-
-                if ($result){
-                    $arr['mail_status']='33333';//邮件下发ok
-                }else{
-                    $arr['mail_status']='44444'; //邮件下发failed
+                if ($result) {
+                    $arr['mail_status'] = '33333';//邮件下发ok
+                } else {
+                    $arr['mail_status'] = '44444'; //邮件下发failed
                 }
                 $this->ajaxReturn($arr, 'JSON');
+
+
             } else {
-                $m->execute('rollback');
-                $m->execute('unlock tables');
-                $this->ajaxError("收款失败");
-            }
-        }
-    }
-
-    //关闭交易 id是订单的id
-    public function closeTrade($id, $userid, $token)
-    {
-        //TODO 校验状态 已修改
-        $tradeData = M('Trade')->where('id=' . $id)->find();
-
-        $this->checkLog($userid, $token);
-
-        if ($userid != $tradeData['userid'] && $userid != $tradeData['trade_id']) {
-            $this->ajaxError('此订单不是您的订单');
-        }
-
-        if ($tradeData['type'] == 1) {
-            if ($userid == $tradeData['trade_id']) {
-                $this->ajaxError('卖家不能操作取消交易');
-            }
-        }
-
-        if ($tradeData['type'] == 2) {
-            if ($userid == $tradeData['userid']) {
-                $this->ajaxError('卖家不能操作取消交易');
-            }
-        }
-
-        if ($tradeData['order_status'] ==3) {
-            $this->ajaxError('订单已经完成，不能关闭交易');
-        }
-
-
-        if ($tradeData['order_status'] == 0) {
-            $this->ajaxError('您的交易已经关闭');
-        }
-
-        $appeal =M('Appeal')->where(array(
-            'trade_id' =>$id,
-            'status' => 1
-        ))->find();
-
-        $m = M();
-        $m->execute('set autocommit = 0');
-        $m->execute('lock tables trade_trade write , trade_user_coin write , trade_user_operation write , trade_appeal write');
-
-        if ($tradeData['type'] == 2) {
-            $rs[] = $m->table('trade_user_coin')->where('userid=' . $tradeData['userid'])->setDec($tradeData['coin_type'] . "d", $tradeData['num']);
-            $rs[] = $m->table('trade_user_coin')->where('userid=' . $tradeData['userid'])->setInc($tradeData['coin_type'], $tradeData['num']);
-        }
-        $rs[] = $m->table('trade_trade')->where(array(
-            'id' => $id
-        ))->setField('order_status', 0);
-
-
-        if ($tradeData['type'] == 1){
-            $rs[] = $m->table('trade_user_coin')->where(array(
-                'userid' => $tradeData['trade_id']
-            ))->setDec($tradeData['coin_type'] .'d' , $tradeData['num'] + $tradeData['fee']);
-
-            $rs[] = $m->table('trade_user_coin')->where(array(
-                'userid' => $tradeData['trade_id']
-            ))->setInc($tradeData['coin_type'] , $tradeData['num'] + $tradeData['fee']);
-
-        }
-
-        if ($tradeData['type'] == 1) {
-            $rs[] = $m->table('trade_user_operation')->add(array(
-                'userid' => $userid,
-                'trade_id' => $tradeData['trade_id'],
-                'status' => 0,
-                'addtime' => time(),
-                'order_id' => $tradeData['order_id'],
-                'tradeid' => $tradeData['id']
-            ));
-        }
-
-        if ($tradeData['type'] ==2) {
-            $rs[] = $m->table('trade_user_operation')->add(array(
-                'userid' => $userid,
-                'trade_id' => $tradeData['userid'],
-                'status' => 0,
-                'addtime' => time(),
-                'order_id' => $tradeData['order_id'],
-                'tradeid' => $tradeData['id']
-            ));
-        }
-
-        if ($appeal){
-            $rs=$m->table('trade_appeal')->where(array(
-                'trade_id' =>$id
-            ))->setField('status',0);
-        }
-
-        if (check_arr($rs)) {
-            $m->execute('commit');
-            $m->execute('unlock tables');
-            $arr = array(
-                'type' => 1,
-                'msg' => '关闭成功'
-            );
-
-
-
-            $this->ajaxReturn($arr, 'JSON');
-        } else {
             $m->execute('rollback');
             $m->execute('unlock tables');
-            $this->ajaxError("关闭失败");
+            $this->ajaxError("收款失败");
+        }
+    }
+}
+
+//关闭交易 id是订单的id
+public
+function closeTrade($id, $userid, $token)
+{
+    //TODO 校验状态 已修改
+    $tradeData = M('Trade')->where('id=' . $id)->find();
+
+    $this->checkLog($userid, $token);
+
+    if ($userid != $tradeData['userid'] && $userid != $tradeData['trade_id']) {
+        $this->ajaxError('此订单不是您的订单');
+    }
+
+    if ($tradeData['type'] == 1) {
+        if ($userid == $tradeData['trade_id']) {
+            $this->ajaxError('卖家不能操作取消交易');
         }
     }
 
-    public function rewardfee($tradeid)
-    {
+    if ($tradeData['type'] == 2) {
+        if ($userid == $tradeData['userid']) {
+            $this->ajaxError('卖家不能操作取消交易');
+        }
+    }
+
+    if ($tradeData['order_status'] == 3) {
+        $this->ajaxError('订单已经完成，不能关闭交易');
+    }
+
+
+    if ($tradeData['order_status'] == 0) {
+        $this->ajaxError('您的交易已经关闭');
+    }
+
+    $appeal = M('Appeal')->where(array(
+        'trade_id' => $id,
+        'status' => 1
+    ))->find();
+
+    $m = M();
+    $m->execute('set autocommit = 0');
+    $m->execute('lock tables trade_trade write , trade_user_coin write , trade_user_operation write , trade_appeal write');
+
+    if ($tradeData['type'] == 2) {
+        $rs[] = $m->table('trade_user_coin')->where('userid=' . $tradeData['userid'])->setDec($tradeData['coin_type'] . "d", $tradeData['num']);
+        $rs[] = $m->table('trade_user_coin')->where('userid=' . $tradeData['userid'])->setInc($tradeData['coin_type'], $tradeData['num']);
+    }
+    $rs[] = $m->table('trade_trade')->where(array(
+        'id' => $id
+    ))->setField('order_status', 0);
+
+
+    if ($tradeData['type'] == 1) {
+        $rs[] = $m->table('trade_user_coin')->where(array(
+            'userid' => $tradeData['trade_id']
+        ))->setDec($tradeData['coin_type'] . 'd', $tradeData['num'] + $tradeData['fee']);
+
+        $rs[] = $m->table('trade_user_coin')->where(array(
+            'userid' => $tradeData['trade_id']
+        ))->setInc($tradeData['coin_type'], $tradeData['num'] + $tradeData['fee']);
+
+    }
+
+    if ($tradeData['type'] == 1) {
+        $rs[] = $m->table('trade_user_operation')->add(array(
+            'userid' => $userid,
+            'trade_id' => $tradeData['trade_id'],
+            'status' => 0,
+            'addtime' => time(),
+            'order_id' => $tradeData['order_id'],
+            'tradeid' => $tradeData['id']
+        ));
+    }
+
+    if ($tradeData['type'] == 2) {
+        $rs[] = $m->table('trade_user_operation')->add(array(
+            'userid' => $userid,
+            'trade_id' => $tradeData['userid'],
+            'status' => 0,
+            'addtime' => time(),
+            'order_id' => $tradeData['order_id'],
+            'tradeid' => $tradeData['id']
+        ));
+    }
+
+    if ($appeal) {
+        $rs = $m->table('trade_appeal')->where(array(
+            'trade_id' => $id
+        ))->setField('status', 0);
+    }
+
+    if (check_arr($rs)) {
+        $m->execute('commit');
+        $m->execute('unlock tables');
+        $arr = array(
+            'type' => 1,
+            'msg' => '关闭成功'
+        );
+
+
+        $this->ajaxReturn($arr, 'JSON');
+    } else {
+        $m->execute('rollback');
+        $m->execute('unlock tables');
+        $this->ajaxError("关闭失败");
+    }
+}
+
+public function rewardfee($tradeid){
+
         $res = null;
 
         if (!$tradeid) {
@@ -609,8 +606,7 @@ class TradeController extends HomeController
         $trade = M('Trade')->where(array(
             'id' => $tradeid
         ))->find();
-        if (!$trade )
-        {
+        if (!$trade) {
             return $res;
         }
         //判断订单是否已发放佣金
@@ -619,13 +615,11 @@ class TradeController extends HomeController
             'tradeid' => $tradeid
         ))->find();
 
-        if ($reward)
-        {
+        if ($reward) {
             return $res;
         }
 
-        if ($trade['status'] != 2)
-        {
+        if ($trade['status'] != 2) {
             return $res;
         }
 
@@ -637,76 +631,67 @@ class TradeController extends HomeController
         if (!$user['invit_1'] && !$user['invit_2']) {
             return $res;
         }
-        if ($user['invit_1'])
-        {
-            $invit1uid =M('User')->where(array(
+        if ($user['invit_1']) {
+            $invit1uid = M('User')->where(array(
                 'invit' => $user['invit_1']
             ))->find();
         }
 
-        if ($user['invit_2'])
-        {
-            $invit2uid =M('User')->where(array(
+        if ($user['invit_2']) {
+            $invit2uid = M('User')->where(array(
                 'invit' => $user['invit_2']
             ))->find();
         }
 
-        if (!$trade['fee'])
-        {
+        if (!$trade['fee']) {
             return $res;
         }
         $fee = M('InvitFee')->find();
-        if (!$fee){
+        if (!$fee) {
             return $res;
         }
-        if ($invit1uid)
-        {
-//            $reward1fee = round( $trade['fee'] * $fee['invit1']/100 , 8);
-            $reward1fee = floor( $trade['fee'] * $fee['invit1']/100 *100000000)/100000000;
+        if ($invit1uid) {
+    //            $reward1fee = round( $trade['fee'] * $fee['invit1']/100 , 8);
+            $reward1fee = floor($trade['fee'] * $fee['invit1'] / 100 * 100000000) / 100000000;
         }
-        if ($invit2uid)
-        {
-//            $reward2fee = round( $trade['fee'] * $fee['invit2']/100 , 8);
-            $reward2fee = floor( $trade['fee'] * $fee['invit2']/100 *100000000)/100000000;
+        if ($invit2uid) {
+    //            $reward2fee = round( $trade['fee'] * $fee['invit2']/100 , 8);
+            $reward2fee = floor($trade['fee'] * $fee['invit2'] / 100 * 100000000) / 100000000;
         }
 
-        $m=M();
+        $m = M();
         $m->execute('set autocommit = 0');
         $m->execute('lock tables trade_invit_reward write,  trade_user_coin write');
 
-        if ($invit1uid['id'])
-        {
-            $rs['invit1']=$m->table('trade_user_coin')->where(array(
+        if ($invit1uid['id']) {
+            $rs['invit1'] = $m->table('trade_user_coin')->where(array(
                 'userid' => $invit1uid['id']
-            ))->setInc($trade['coin_type'],$reward1fee);
+            ))->setInc($trade['coin_type'], $reward1fee);
 
         }
 
-        if ($invit2uid['id'])
-        {
-            $rs['invit2']=$m->table('trade_user_coin')->where(array(
+        if ($invit2uid['id']) {
+            $rs['invit2'] = $m->table('trade_user_coin')->where(array(
                 'userid' => $invit2uid['id']
-            ))->setInc($trade['coin_type'],$reward2fee);
+            ))->setInc($trade['coin_type'], $reward2fee);
         }
 
 
-
-
-        $rs['info'] =$m->table('trade_invit_reward')->add(array(
+        $rs['info'] = $m->table('trade_invit_reward')->add(array(
             'trade_user' => $trade['trade_id'],
-            'tradeid'=>$trade['id'] ,
-            'invit1_id' =>$invit1uid['id'],
+            'tradeid' => $trade['id'],
+            'invit1_id' => $invit1uid['id'],
             'invit1_fee' => $reward1fee,
-            'invit2_id' =>$invit2uid['id'],
-            'invit2_fee'=>$reward2fee,
-            'coin_type'=>$trade['coin_type'],
-            'trade_time'=>$trade['addtime']
+            'invit2_id' => $invit2uid['id'],
+            'invit2_fee' => $reward2fee,
+            'coin_type' => $trade['coin_type'],
+            'trade_time' => $trade['addtime']
         ));
-        $rs['tradeid']=$tradeid;
-        if (check_arr($rs)){
+        $rs['tradeid'] = $tradeid;
+        if (check_arr($rs)) {
             $m->execute('commit');
             $m->execute('unlock tables');
-        }else{
+        } else {
             $m->execute('rollback');
             $m->execute('unlock tables');
         }

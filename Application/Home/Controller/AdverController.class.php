@@ -251,7 +251,7 @@ class AdverController extends HomeController
 
             $myAdver[$k]['limt']=($v['min_limit'] +0) .'-'. ($v['max_limit'] +0);
 
-            $trade=M('trade')->where('adver_id = '.$v['id'].' and (order_status = 1 or order_status =2)')->select();
+            $trade=M('trade')->where('adver_id = '.$v['id'].' and status = 1 ')->select();
 
             $myAdver[$k]['count']=count($trade);
         }

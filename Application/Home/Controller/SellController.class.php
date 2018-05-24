@@ -133,8 +133,8 @@ class SellController extends HomeController
             $tradeData['moble_type'] = 0 ;
         }
 
-        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
-        $tradePriceTotal = M('Trade')->field("sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
+        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
+        $tradePriceTotal = M('Trade')->field("sum(price) as 'price'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
         $tradeData['historyprice'] = $tradePriceTotal[0]['price'];
         $tradeData['historydeal'] = $tradeBtcTotal[0]['deal'];
 

@@ -126,9 +126,9 @@ class BuyController extends HomeController
         }else{
             $adverData['moble_type']=0;
         }
-        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
+        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
         $adverData['historydeal'] = $tradeBtcTotal[0]['deal'];
-        $tradePriceTotal = M('Trade')->field("sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
+        $tradePriceTotal = M('Trade')->field("sum(price) as 'price'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
         $adverData['historyprice'] = $tradePriceTotal[0]['price'];
         $data = array(
             'adverData' => $adverData,

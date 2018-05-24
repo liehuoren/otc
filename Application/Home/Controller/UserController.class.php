@@ -33,14 +33,14 @@ class UserController extends HomeController
             $userData['is_paypassword'] = 0;
         }
 
-        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "btc"')->select();
-        $tradeUsdpTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "usdt"')->select();
-        $tradePriceTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('order_status >=3 and (userid = ' . $userid . ' or trade_id = ' .$userid .') ')->select();
+        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "btc"')->select();
+        $tradeUsdpTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .') and coin_type = "usdt"')->select();
+        $tradePriceTotal = M('Trade')->field("sum(deal) as 'deal' , sum(price) as 'price'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .') ')->select();
         $userData['historydeal'] = $tradeBtcTotal[0]['deal'] + '0';
         $userData['historyusdpdeal'] = $tradeUsdpTotal[0]['deal'] + '0';
         $userData['historyprice'] = $tradePriceTotal[0]['price'] + '0';
         $this->ajaxReturn($userData, 'JSON');
-        $this->display();
+
     }
 
     public function upmoble($userid , $token){

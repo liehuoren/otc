@@ -71,6 +71,7 @@ class QueueController extends Controller
 
                     $true_amount = $eth->real_banlance($eth->decode_hex($trans->value));
                     $flag = 2;
+                    $coin = 'eth';
                 }
 
                 $user = M('UserCoin')->where(array(

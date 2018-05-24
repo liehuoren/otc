@@ -356,7 +356,7 @@ class Ethereum extends ETHClient
         echo '当前区块高度:'.$currentBlockNumber."<br/>";
         echo '编写代码时最新区块:'.$blockNumber."<br/>";
         $transactions = array();
-        if ($currentBlockNumber -16 >= $blockNumber) {
+        if ($currentBlockNumber >= $blockNumber) {
             $currentBlockNumber = $blockNumber  > $currentBlockNumber ? $currentBlockNumber : $blockNumber + 15;
             for ($i = $blockNumber; $i <= $currentBlockNumber; $i ++) {
                 $count = hexdec($this->eth_getBlockTransactionCountByNumber($i));

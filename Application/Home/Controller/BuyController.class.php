@@ -85,7 +85,7 @@ class BuyController extends HomeController
     }
 
     //买入详情  id 为  广告的id
-    public function buy_index($id ,$userid ,$token )
+    public function buy_index($id   ,$userid  ,$token )
     {
         $this->checkLog($userid, $token);
 
@@ -95,13 +95,13 @@ class BuyController extends HomeController
             $this->ajaxError('请先处理您正在交易的订单');
         }
 
-        $adverData = M('Adver')->where('status = 1 and id= '.$id)->getField('userid');
+        $adverUser = M('Adver')->where('status = 1 and id= '.$id)->getField('userid');
 
-        if(!$adverData){
+        if(!$adverUser){
             $this->ajaxError('没有此广告');
         }
 
-        if ($adverData == $userid){
+        if ($adverUser == $userid){
             $this->ajaxError('此广告是您自己发布的，不能进行交易');
         }
 
@@ -126,9 +126,9 @@ class BuyController extends HomeController
         }else{
             $adverData['moble_type']=0;
         }
-        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
+        $tradeBtcTotal = M('Trade')->field("sum(deal) as 'deal'")->where('status =2 and (userid = ' . $adverUser . ' or trade_id = ' .$adverUser .')')->select();
         $adverData['historydeal'] = $tradeBtcTotal[0]['deal'];
-        $tradePriceTotal = M('Trade')->field("sum(price) as 'price'")->where('status =2 and (userid = ' . $userid . ' or trade_id = ' .$userid .')')->select();
+        $tradePriceTotal = M('Trade')->field("sum(price) as 'price'")->where('status =2 and (userid = ' . $adverUser . ' or trade_id = ' .$adverUser .')')->select();
         $adverData['historyprice'] = $tradePriceTotal[0]['price'];
         $data = array(
             'adverData' => $adverData,

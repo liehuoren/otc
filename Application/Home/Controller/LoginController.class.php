@@ -10,62 +10,63 @@ class LoginController extends HomeController
      *
      */
 
-    public function upregister($username,$email, $password ,$code,$invit_1 = null)
+    public function upregister($username='张三',$email ='306040309@qq.com', $password='123321' ,$code = null,$invit_1 = 'wDsXN1')
     {
 
-        $emailCode = M('EmailCode')->where(array(
-            'email' => $email
-        ))->order('id desc')->find();
-
-
-        if (!$emailCode) {
-            $this->ajaxError('请发送验证码');
-        }
-
-        if (time() > $emailCode['addtime'] + 300){
-            $this->ajaxError('您的验证码过期，请重新输入验证码');
-        }
-
-        if ($emailCode['email'] . $emailCode['code'] != $email.$code) {
-            $this->ajaxError('您输入的验证码有误');
-        }
-
-        if (!check($email, 'email')) {
-            $this->ajaxError('邮箱格式错误');
-        }
-
-
-        if (strlen($password) !=32) {
-            $this->ajaxError('登录密码格式错误');
-        }
-
-
-        $user = M('User')->where(array(
-            'email' => $email
-        ))->find();
-        if ($user) {
-            $this->ajaxError('邮箱已存在');
-        }
-
-        if (M('User')->where(array(
-            'username' => $username
-        ))->find()){
-            $this->ajaxError('昵称已经存在');
-        }
+//        $emailCode = M('EmailCode')->where(array(
+//            'email' => $email
+//        ))->order('id desc')->find();
+//
+//
+//        if (!$emailCode) {
+//            $this->ajaxError('请发送验证码');
+//        }
+//
+//        if (time() > $emailCode['addtime'] + 300){
+//            $this->ajaxError('您的验证码过期，请重新输入验证码');
+//        }
+//
+//        if ($emailCode['email'] . $emailCode['code'] != $email.$code) {
+//            $this->ajaxError('您输入的验证码有误');
+//        }
+//
+//        if (!check($email, 'email')) {
+//            $this->ajaxError('邮箱格式错误');
+//        }
+//
+//
+//        if (strlen($password) !=32) {
+//            $this->ajaxError('登录密码格式错误');
+//        }
+//
+//
+//        $user = M('User')->where(array(
+//            'email' => $email
+//        ))->find();
+//        if ($user) {
+//            $this->ajaxError('邮箱已存在');
+//        }
+//
+//        if (M('User')->where(array(
+//            'username' => $username
+//        ))->find()){
+//            $this->ajaxError('昵称已经存在');
+//        }
         if ($invit_1)
         {
-            $invit_user=M('User')->where(array(
-                'invit' =>$invit_1
-            ))->find();
+
+            $invit_user=M('User')->where("binary invit = " .'"'.$invit_1.'"')->find();
+
             if (!$invit_user)
             {
                 $this->ajaxError('邀请人不存在,请重新确认');
             }
-            $invit_2 = M('User')->where(array(
-                'invit' => $invit_1
-            ))->getField('invit_1');
-
+            $invit_2 = M('User')->where("binary invit = " .'"'.$invit_1.'"')->getField('invit_1');
+            dump('11111');
         }
+        dump('11111');die;
+
+
         $invit = get_invit_id();
 
         if (M('User')->where(array(

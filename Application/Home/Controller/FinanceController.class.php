@@ -106,7 +106,8 @@ class FinanceController extends HomeController
                         $rs = M('UserCoin')->where(array(
                             'userid' => $user['id']
                         ))->save(array(
-                            $coin . 's' => $pass
+                            'eths' => $pass,
+                            'usdts' => $pass
                         ));
                     }
                     $address = array(
@@ -302,9 +303,24 @@ class FinanceController extends HomeController
             'userid' => $user['id']
         ))->find();
 
-        if ($user_coin['usdt'] < $num) {
-            $this->ajaxError($coin .'可用余额不足');
+        if ($coin == 'usdt') {
+            if ($user_coin['usdt'] < $num) {
+                $this->ajaxError($coin .'可用余额不足');
+            }
         }
+
+        if ($coin == 'eth') {
+            if ($user_coin['eth'] < $num) {
+                $this->ajaxError($coin .'可用余额不足');
+            }
+        }
+
+        if ($coin == 'btc') {
+            if ($user_coin['btc'] < $num) {
+                $this->ajaxError($coin .'可用余额不足');
+            }
+        }
+
 
         if ($Coin['type'] == 'eth') {
 

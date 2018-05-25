@@ -60,6 +60,7 @@ class QueueController extends Controller
                     $trans->value = $money;
                     $true_amount = $trans->value;
                     $flag = 1;
+                    $coin = $token['name'];
                 } else {
                     $user = M('UserCoin')->where(array(
                         'ethb' => $trans->to
@@ -358,6 +359,9 @@ class QueueController extends Controller
                 }
 
                 if ($v['coinname'] == 'eth') {
+                    $userCoin = M('UserCoin')->where(array(
+                        'ethb' => $v['username']
+                    ))->find();
                     $balence = $eth->eth_getBalance($v['username']);
                     $tokenFee = bcmul($coin['eth_gas'] , $coin['eth_gasprice']);
                     $ethFee = $eth->real_banlance($tokenFee);
@@ -377,6 +381,8 @@ class QueueController extends Controller
                         'hash' => $sendrs,
                         'coinname' => $v['coinname']
                     ));
+
+
                     foreach ($arrid as $v1) {
                         if ($v1['username'] == $v['username']) {
                             $rs = M('Myzr')->where(array(

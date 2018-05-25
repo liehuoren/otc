@@ -376,6 +376,8 @@ class TradeController extends HomeController
                     }
                 }
 
+                //发放佣金
+                $reward = $this->rewardfee($id);
                 if ($result) {
                     $arr['mail_status'] = '11111';//邮件下发ok
                 } else {

@@ -129,7 +129,7 @@ class FinanceController extends Controller
         $coinInfo = M('Coin')->where(array(
             'name' => $myzc['coinname']
         ))->find();
-        if ($coinInfo['name'] == 'usd') {
+        if ($coinInfo['name'] == 'usdt') {
             $dj_address = $coinInfo['dj_zj'];
             $dj_port = $coinInfo['dj_dk'];
 
